@@ -1,0 +1,13 @@
+{
+  "name": "lema-ai-fullstack",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd lema-backend && npm run dev",
+    "dev:frontend": "cd lema-frontend && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
