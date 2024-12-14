@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import { Post } from "../../types";
-
+import { useParams, useNavigate } from "react-router-dom";
+import { GetPostsResponse, Post } from "../../types";
 import { ArrowLeft } from "lucide-react";
 import { PostCard } from "./components/PostCard";
 import CirclePlus from "@/assets/icons/circle-plus.svg?react";
 import { NewPostModal } from "./components/NewPostModal";
 import LoaderComponent from "../Loader";
 import { createPost, deletePost, getPosts } from "@/service";
+import { ErrorState } from "../ErrorState";
 
 export const UserPosts = () => {
   const { userId } = useParams();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [newPost, setNewPost] = useState({ title: "", body: "" });
@@ -20,14 +19,13 @@ export const UserPosts = () => {
 
   const presentUserId = userId || "";
 
-  const { data: posts, isLoading } = useQuery<Post[]>({
-    queryKey: ["posts", presentUserId],
-    queryFn: () => getPosts(presentUserId),
-    enabled: !!userId,
-  });
-
-  const name = searchParams.get("name");
-  const email = searchParams.get("email");
+  const { data, isLoading, error, refetch } = useQuery<GetPostsResponse, Error>(
+    {
+      queryKey: ["posts", presentUserId],
+      queryFn: () => getPosts(presentUserId),
+      enabled: !!userId,
+    }
+  );
 
   const deleteMutation = useMutation({
     mutationFn: (postId: string) => deletePost(postId),
@@ -37,7 +35,7 @@ export const UserPosts = () => {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: Omit<Post, "id">) => createPost(data),
+    mutationFn: (data: Omit<Post, "id" | "created_at">) => createPost(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts", presentUserId] });
       setIsOpen(false);
@@ -52,6 +50,30 @@ export const UserPosts = () => {
       </div>
     );
   }
+
+  if (error) {
+    return (
+      <div className="w-full max-w-6xl mx-auto px-2 py-8">
+        <ErrorState
+          message="Failed to load posts. Please try again."
+          onRetry={() => refetch()}
+        />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="w-full max-w-6xl mx-auto px-2 py-8">
+        <ErrorState message="No data available." />
+      </div>
+    );
+  }
+
+  const {
+    userDetail: { name, email },
+    posts,
+  } = data;
 
   return (
     <div className="w-full max-w-6xl mx-auto px-2 py-8">

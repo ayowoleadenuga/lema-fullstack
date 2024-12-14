@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RightArrowIcon from "@/assets/icons/right-arrow.svg?react";
 import LeftArrowIcon from "@/assets/icons/left-arrow.svg?react";
 import { User, UserResponse } from "../../types";
@@ -8,7 +8,6 @@ import LoaderComponent from "../Loader";
 import { getUsers } from "@/service";
 
 export const UsersTable = () => {
-  const [_, setSearchParams] = useSearchParams();
   const [page, setPage] = React.useState(0);
   const pageSize = 4;
   const navigate = useNavigate();
@@ -65,12 +64,8 @@ export const UsersTable = () => {
       {index + 1}
     </button>
   );
-  const handleClick = ({ name, email, id }: User) => {
-    const params = new URLSearchParams();
-    if (name) params.append("name", name);
-    if (email) params.append("email", email);
-
-    navigate(`/users/${id}?${params.toString()}`);
+  const handleClick = ({ id }: { id: string }) => {
+    navigate(`/users/${id}`);
   };
   return (
     <div className="w-full max-w-4xl lg:max-w-2xl mx-auto grid gap-y-10 px-2">

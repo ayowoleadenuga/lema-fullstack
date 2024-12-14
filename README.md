@@ -1,110 +1,140 @@
-# Web Developer Assignment
+# User Posts Management System
 
-This full-stack assignment involves building a user management system where developers must extend a Node.js/SQLite backend for user and post operations, and create a React/TypeScript frontend that displays user data in a paginated table and allows for post management, all while following provided design specifications.
+A full-stack application for managing users and their posts, built with TypeScript, React, Node.js, and SQLite.
 
+## Features
 
-## Backend
+- View users in a paginated table
+- Display user details including address information
+- View posts for each user
+- Create new posts
+- Delete existing posts
+- Responsive design
+- RESTful API backend
 
-### Provided Backend
+## Tech Stack
 
-A Node server written in TypeScript is provided.
-The server utilizes an SQLite database (data.db) containing all relevant data, including users posts and addresses.
-The server exposes several partial RESTful API endpoints:
+### Frontend
 
-User Endpoints:
-- `GET /users` -  Returns a list of users with pagination support. (e.g., /users?pageNumber=0&pageSize=10).
-- `GET /users/count` - Returns the total number of users.
-Post Endpoint:
-- `GET /posts` - Returns posts filtered by a specific user ID, using the userId query parameter (e.g., /posts?userId={userId}).
+- React 18
+- TypeScript
+- Vite
+- React Query
+- React Router DOM
+- Tailwind CSS
+- Axios
+- Lucide React (icons)
 
-### Backend Requirements
+### Backend
 
-You are required to implement the following backend functionalities:
+- Node.js
+- Express
+- TypeScript
+- SQLite3
+- CORS
 
-- **Address to User**
-  - Extend the existing user-related endpoints to include address (metadata associated with the user).
-  - Query the address from the database and include them in the user response.
-  - Ensure the address are properly validated and formatted before returning to the frontend.
-- **Post Deletion**
-  - Create an endpoint to delete a post by its ID.
-  - Remove the post from the database upon successful deletion.
-  - Return appropriate HTTP status codes and messages.
-- **Add a New Post**
-  - Create an endpoint to add a new post for a user, accepting **Title**, **Body**, and **User ID**.
-  - Validate input data and handle errors.
-  - Save the new post to the database upon success.
+## Prerequisites
 
-## Front-End
+- Node.js (v16 or higher)
+- npm or yarn
 
-### General Requirements
+## Project Structure
 
-- Implement the web UI using **TypeScript**, **React**, **React Query**, and **Tailwind CSS**.
-- Follow the **Figma design** provided in the Resources section.
-- Ensure **graceful handling of API errors** or unexpected data from the backend.
-- Components and pages should have **error and loading states**.
-- Emphasize **code reusability** and **separation of concerns** in your components.
+```
+├── lema-backend/          # Backend directory
+│   ├── config/           # Configuration files
+│   ├── src/              # Source files
+│   └── data.db           # SQLite database
+│
+└── lema-frontend/        # Frontend directory
+    ├── public/           # Public assets
+    └── src/              # Source files
+```
 
-### Users Table
+## Getting Started
 
-- Set up an internal API that fetches a list of users from your backend API, using the pagination.
-- Display the users in an organized table with the following features:
-  - **Pagination**: Show 4 users per page.
-  - **User Details**:
-    - Full Name
-    - Email Address
-    - Address formatted as "street, state, city, zipcode". Keep the address column at 392px width and use ellipsis (...) for any overflow.
+1. Clone the repository:
 
-### User Posts
+```bash
+git clone https://github.com/ayowoleadenuga/lema-fullstack.git
+cd lema-fullstack
+```
 
-- When clicking on a user row, navigate to a new page that displays a list of the user's posts.
-- Fetch the user's posts from your backend API.
-- The page should include:
-  - A header with a summary of the user and the number of posts.
-  - A list of all posts (**no pagination required**).
-  - Each post should display:
-    - **Title**
-    - **Body**
-    - A **Delete** icon.
-      - Clicking the Delete icon should delete the post via your backend API and update the UI accordingly.
-  - An option to **add a new post**:
-    - Include a button that opens a form to create a new post with **Title** and **Body** fields.
-    - Upon submission, the new post should be saved via your backend API and appear in the list of posts without requiring a page refresh.
-- Ensure the design is intuitive and posts are easily readable by closely following the provided Figma design.
+2. Install dependencies:
 
-## Guidelines
+```bash
+# Install backend dependencies
+cd lema-backend
+npm install
 
-1. **State Management with React Query**
-   - Use React Query to manage server state.
-   - Ensure efficient data fetching, caching, and synchronization with the backend.
-   - Utilize React Query's features to handle loading and error states.
-2. **Code Reusability and Separation**
-   - Structure your components to promote reusability and maintainability.
-   - Abstract shared logic into custom hooks or utility functions where appropriate.
-   - Follow best practices for component composition and props management.
-3. **Responsiveness**
-   - Ensure the application is responsive and functions well on various screen sizes and devices.
-   - Use Tailwind CSS utilities to create responsive layouts.
-4. **Error Handling**
-   - Implement robust error handling for API requests and unexpected data.
-   - Provide meaningful feedback to the user in case of errors.
-   - Use try-catch blocks and handle promise rejections appropriately in your backend.
+# Install frontend dependencies
+cd ../lema-frontend
+npm install
+```
 
-## Resources
+3. Start the development servers:
 
-- **Backend Server**: A partially implemented Node server in TypeScript will be provided. You are expected to complete the specified backend functionalities.
-- **SQLite Database**: The backend uses the `data.db` SQLite database, which contains all necessary data.
-- **Figma Design**: Follow the design specifications outlined in the provided Figma file.
-  [Figma Design for Web UI](https://www.figma.com/design/Wkbz27sGWBOFMDocOck4mm/Full-Stack-Developer-Assignment?node-id=0-1&node-type=canvas&t=zK4X8qKaPmxu84XZ-0)
+```bash
+# Start backend server (from /lema-backend directory)
+npm run dev
 
-## Deliverables
+# Start frontend development server (from /lema-frontend directory)
+npm run dev
+```
 
-- A full-stack application that meets the above requirements.
-- Source code organized and documented for readability.
-- Completed backend functionalities as specified.
-- At least one unit test demonstrating testing of a component or functionality.
-- Instructions on how to run the application locally, including setting up the backend and frontend.
+The frontend will be available at `http://localhost:5173` and the backend at `http://localhost:3000`.
 
-## Submission Instructions
+## API Endpoints
 
-- **Code Repository**: Provide access to your code via a Git repository (e.g., GitHub, GitLab).
-- **Readme File**: Include a `README.md` file with instructions on how to install dependencies, set up the database, run migrations (if any), and start both the backend and frontend servers.
+- `GET /users?pageNumber={number}&pageSize={number}` - Get paginated users
+- `GET /users/count` - Get total number of users
+- `GET /posts?userId={number}` - Get posts for a specific user
+- `POST /posts` - Create a new post
+- `DELETE /posts/:id` - Delete a post
+
+## Deployment
+
+### Backend Deployment (Railway)
+
+1. Create a new project on [Railway](https://railway.app/)
+2. Connect your GitHub repository
+3. Add the following environment variables in Railway:
+   - `PORT=3000`
+   - `NODE_ENV=production`
+4. Deploy using the following commands:
+
+```bash
+cd lema-backend
+railway up
+```
+
+### Frontend Deployment (Vercel)
+
+1. Push your code to GitHub
+2. Create a new project on [Vercel](https://vercel.com)
+3. Import your repository
+4. Configure the build settings:
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+5. Add environment variables:
+   - `VITE_API_URL=your-railway-backend-url`
+6. Deploy!
+
+## Development
+
+### Running Tests
+
+```bash
+# Backend tests
+cd lema-backend
+npm run test
+
+# Frontend tests
+cd lema-frontend
+npm run test
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

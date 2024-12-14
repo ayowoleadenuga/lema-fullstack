@@ -16,3 +16,5 @@ app.use("/users", usersRouter);
 app.listen(port, () => {
   console.log(`API server is running on port ${port}`);
 });
+
+export default app;
