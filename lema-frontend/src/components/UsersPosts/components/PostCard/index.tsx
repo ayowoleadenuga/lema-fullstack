@@ -1,4 +1,4 @@
-import DeleteIcon from "@/assets/icons/delete-icon.svg?react";
+import { DeleteIcon } from "@/assets/icons/delete-icon";
 import { Post } from "@/types";
 
 export function PostCard({
@@ -10,12 +10,20 @@ export function PostCard({
 }) {
   return (
     <div
-      id={post.id.toString()}
+      role="article"
+      id={post.id}
       className="border rounded-lg border-border-gray px-8 pt-2 pb-6 shadow-md hover:shadow-thick transition-shadow h-[290px] w-full"
     >
       <div className="w-full flex justify-end">
-        <button className="block" onClick={() => deletePost(post.id)}>
-          <DeleteIcon className="w-6 h-6 cursor-pointer" />
+        <button
+          className="block"
+          onClick={() => deletePost(post.id)}
+          aria-label="Delete post"
+        >
+          <DeleteIcon
+            className="w-6 h-6 cursor-pointer"
+            data-testid="delete-icon"
+          />
         </button>
       </div>
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import RightArrowIcon from "@/assets/icons/right-arrow.svg?react";
-import LeftArrowIcon from "@/assets/icons/left-arrow.svg?react";
+import { RightArrowIcon } from "@/assets/icons/right-arrow";
+import { LeftArrowIcon } from "@/assets/icons/left-arrow";
 import { User, UserResponse } from "../../types";
 import LoaderComponent from "../Loader";
 import { getUsers } from "@/service";

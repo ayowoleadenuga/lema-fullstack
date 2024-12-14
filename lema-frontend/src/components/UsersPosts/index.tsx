@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { GetPostsResponse, Post } from "../../types";
 import { ArrowLeft } from "lucide-react";
 import { PostCard } from "./components/PostCard";
-import CirclePlus from "@/assets/icons/circle-plus.svg?react";
+import { CirclePlusIcon } from "@/assets/icons/circle-plus";
 import { NewPostModal } from "./components/NewPostModal";
 import LoaderComponent from "../Loader";
 import { createPost, deletePost, getPosts } from "@/service";
@@ -99,7 +99,7 @@ export const UserPosts = () => {
           className="border-4 rounded-lg border-border-gray border-dashed p-6 relative shadow-md hover:shadow-thick transition-shadow h-[290px] w-full"
         >
           <span className="w-full">
-            <CirclePlus className="w-6 h-6 mx-auto" />
+            <CirclePlusIcon className="w-6 h-6 mx-auto" />
           </span>
           <span className="text-custom-gray-light text-sm-regular font-semibold leading-5">
             New Post

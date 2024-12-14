@@ -1,4 +1,3 @@
-// src/service/index.ts
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
@@ -8,10 +7,8 @@ import {
   DeletePostResponse,
   ErrorResponse,
 } from "../types";
+import { API_URL } from "@/env";
 
-const API_URL = import.meta.env.VITE_API_BASE_URL;
-
-// Add type guard for error responses
 const isErrorResponse = (error: any): error is ErrorResponse => {
   return "error" in error;
 };

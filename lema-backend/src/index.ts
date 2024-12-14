@@ -7,7 +7,6 @@ import usersRouter from "./routes/users";
 const port = config.get("port") as number;
 const app: Application = express();
 
-// Use CORS middleware
 app.use(cors());
 app.use(express.json());
 app.use("/posts", postsRouter);
