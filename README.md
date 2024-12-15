@@ -92,49 +92,6 @@ The frontend will be available at `http://localhost:5173` and the backend at `ht
 - `POST /posts` - Create a new post
 - `DELETE /posts/:id` - Delete a post
 
-## Deployment
-
-### Backend Deployment (Railway)
-
-1. Create a new project on [Railway](https://railway.app/)
-2. Connect your GitHub repository
-3. Add the following environment variables in Railway:
-   - `PORT=3000`
-   - `NODE_ENV=production`
-4. Deploy using the following commands:
-
-```bash
-cd lema-backend
-railway up
-```
-
-### Frontend Deployment (Vercel)
-
-1. Push your code to GitHub
-2. Create a new project on [Vercel](https://vercel.com)
-3. Import your repository
-4. Configure the build settings:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
-5. Add environment variables:
-   - `VITE_API_URL=your-railway-backend-url`
-6. Deploy!
-
-## Development
-
-### Running Tests
-
-```bash
-# Backend tests
-cd lema-backend
-npm run test
-
-# Frontend tests
-cd lema-frontend
-npm run test
-```
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
